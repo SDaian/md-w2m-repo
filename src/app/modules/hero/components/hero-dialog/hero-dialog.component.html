@@ -1,0 +1,54 @@
+<div mat-dialog-content>
+  <form [formGroup]="heroForm">
+    <mat-form-field>
+      <input
+        matInput
+        formControlName="nameLabel"
+        placeholder="Name"
+        appUpperCase
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="genderLabel" placeholder="Gender" />
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        formControlName="citizenshipLabel"
+        placeholder="Citizenship"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        formControlName="occupationLabel"
+        placeholder="Occupation"
+      />
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <div *ngIf="data.action === 'delete'" class="delete-label">
+    <span>¿Esta seguro que desea borrar este heroe?</span>
+  </div>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button
+    *ngIf="data.action === 'delete'"
+    mat-raised-button
+    color="warn"
+    (click)="deleteHero()"
+    cdkFocusInitial
+  >
+    Delete Hero
+  </button>
+  <button
+    *ngIf="data.action === 'update' || data.action === 'create'"
+    mat-raised-button
+    color="primary"
+    [mat-dialog-close]="data"
+    [disabled]="heroForm.invalid"
+    (click)="performAction()"
+  >
+    {{ data.action === "update" ? "Update" : "Create" }}
+  </button>
+</div>
